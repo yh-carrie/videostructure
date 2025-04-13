@@ -39,7 +39,9 @@ in ./models/boq.py, you can change L and Q in
 ```
 
 ### 5. historical training data logs
-you can find it in ./logs_save for pa100k and peta dataset.
+you can find them in ./logs_save for pa100k and peta dataset.
+
+The best result on PA100K can be found in ./logs_save/train_query_16_pA100K_best.log
 
 
 
