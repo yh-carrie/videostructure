@@ -1,0 +1,148 @@
+nohup: ignoring input
+/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/mmcv/__init__.py:20: UserWarning: On January 1, 2023, MMCV will release v2.0.0, in which it will remove components related to the training process and add a data transformation module. In addition, it will rename the package names mmcv to mmcv-lite and mmcv-full to mmcv. See https://github.com/open-mmlab/mmcv/blob/master/docs/en/compatibility.md for more details.
+  warnings.warn(
+/data/2Tssd/yuhan/project/CT2_duibi/models/backbone/swin_transformer2.py:1235: UserWarning: DeprecationWarning: pretrained is deprecated, please use "init_cfg" instead
+  warnings.warn('DeprecationWarning: pretrained is deprecated, '
+redirector stdout
+seed: 712
+code save in exp_result/PETA/swin_b.sm08/code_2025-02-28_23:57:46.tar.gz
+BACKBONE:
+  MULTISCALE: False
+  TYPE: swin_b
+CLASSIFIER:
+  BN: False
+  NAME: linear
+  POOLING: avg
+  SCALE: 1
+  TYPE: base
+DATASET:
+  HEIGHT: 256
+  LABEL: eval
+  NAME: PETA
+  TARGETTRANSFORM: []
+  TEST_SPLIT: test
+  TRAIN_SPLIT: trainval
+  TYPE: pedes
+  VAL_SPLIT: test
+  WIDTH: 128
+  ZERO_SHOT: False
+DISTRIBUTTED: False
+INFER:
+  SAMPLING: False
+LOSS:
+  LOSS_WEIGHT: [1]
+  SAMPLE_WEIGHT: weight
+  SIZESUM: True
+  TYPE: bceloss
+METRIC:
+  TYPE: pedestrian
+NAME: .sm08
+REDIRECTOR: True
+RELOAD:
+  NAME: backbone
+  PTH: 
+  TYPE: False
+TRAIN:
+  AUX_LOSS_START: -1
+  BATCH_SIZE: 32
+  BN_WD: True
+  CLIP_GRAD: True
+  DATAAUG:
+    AUTOAUG_PROB: 0.5
+    TYPE: base
+  EMA:
+    DECAY: 0.9998
+    ENABLE: False
+    FORCE_CPU: False
+  LR_SCHEDULER:
+    LR_FT: 1e-05
+    LR_NEW: 1e-05
+    LR_STEP: []
+    TYPE: plateau
+    WMUP_COEF: 0.01
+    WMUP_LR_INIT: 1e-06
+  MAX_EPOCH: 20
+  NUM_WORKERS: 4
+  OPTIMIZER:
+    MOMENTUM: 0.9
+    TYPE: adam
+    WEIGHT_DECAY: 0.0
+  SHUFFLE: True
+TRANS:
+  DEC_LAYERS: 6
+  DIM_FFD: 2048
+  DIM_HIDDEN: 256
+  DROPOUT: 0.1
+  ENC_LAYERS: 6
+  EOS_COEF: 0.1
+  NHEADS: 8
+  NUM_QUERIES: 100
+  PRE_NORM: False
+VIS:
+  CAM: valid
+  TENSORBOARD:
+    ENABLE: True
+  VISDOM: False
+Compose(
+    Resize(size=(256, 128), interpolation=bilinear, max_size=None, antialias=None)
+    Pad(padding=10, fill=0, padding_mode=constant)
+    RandomCrop(size=(256, 128), padding=None)
+    RandomHorizontalFlip(p=0.5)
+    ToTensor()
+    Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+)
+trainval target_label: all
+test target_label: all
+------------------------------------------------------------
+PETA attr_num : 35, eval_attr_num : 35 trainval set: 11400, test set: 7600, 
+backbone: swin_b, classifier: linear
+model_name: swin_b.sm08
+
+Epoch 0 - Training:   0%|          | 0/356 [00:00<?, ?it/s]
+Epoch 0 - Training:   0%|          | 0/356 [00:02<?, ?it/s, loss=33.4]
+Epoch 0 - Training:   0%|          | 1/356 [00:02<16:34,  2.80s/it, loss=33.4]
+Epoch 0 - Training:   0%|          | 1/356 [00:03<18:34,  3.14s/it, loss=33.4]
+Traceback (most recent call last):
+  File "/data/2Tssd/yuhan/project/CT2_duibi/train_pa100k.py", line 472, in <module>
+    main(cfg, args)
+  File "/data/2Tssd/yuhan/project/CT2_duibi/train_pa100k.py", line 258, in main
+    best_metric, epoch = trainer(cfg, args, epoch=cfg.TRAIN.MAX_EPOCH,
+  File "/data/2Tssd/yuhan/project/CT2_duibi/train_pa100k.py", line 291, in trainer
+    train_loss, train_gt, train_probs, train_imgs, train_logits, train_loss_mtr = batch_trainer(
+  File "/data/2Tssd/yuhan/project/CT2_duibi/batch_engine.py", line 57, in batch_trainer
+    train_logits, _ = model(imgs, gt_label)
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/parallel/data_parallel.py", line 169, in forward
+    return self.module(*inputs[0], **kwargs[0])
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/2Tssd/yuhan/project/CT2_duibi/models/base_block.py", line 156, in forward
+    logits, feat = self.classifier(feat_map, label)
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/2Tssd/yuhan/project/CT2_duibi/models/base_block.py", line 77, in forward
+    feature = self.boq(feature)
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/2Tssd/yuhan/project/CT2_duibi/models/boq.py", line 107, in forward
+    x, x0 = self.boqs[i](x, x0)
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/2Tssd/yuhan/project/CT2_duibi/models/boq.py", line 35, in forward
+    x = self.encoder(x)
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/modules/transformer.py", line 538, in forward
+    x = self.norm1(x + self._sa_block(x, src_mask, src_key_padding_mask))
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/modules/transformer.py", line 546, in _sa_block
+    x = self.self_attn(x, x, x,
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/modules/activation.py", line 1167, in forward
+    attn_output, attn_output_weights = F.multi_head_attention_forward(
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/functional.py", line 5161, in multi_head_attention_forward
+    attn_output_weights = softmax(attn_output_weights, dim=-1)
+  File "/data/2Tssd/yuhan/anaconda3/envs/ct0524/lib/python3.9/site-packages/torch/nn/functional.py", line 1841, in softmax
+    ret = input.softmax(dim)
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 52.00 MiB (GPU 0; 23.69 GiB total capacity; 20.00 GiB already allocated; 46.50 MiB free; 20.76 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
