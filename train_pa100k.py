@@ -46,7 +46,6 @@ torch.autograd.set_detect_anomaly(True)
 
 
 def main(cfg, args):
-    print('笔记：当前创新点是使用了4层的boq进行尝试，query的数量是64，此次训练加上对比学习的损失,Bceloss:con_loss = 1:7,调整了学习率0.001,还加上了正则化训练')
     seed = int(np.random.choice(1000, 1))
     set_seed(seed)
     exp_dir = os.path.join('exp_result', cfg.DATASET.NAME)
