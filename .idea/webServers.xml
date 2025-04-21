@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="754c3d79-4bde-4b63-acde-b5a63d304a20" name="guyan.zzux.com">
+        <fileTransfer accessType="SFTP" host="guyan.zzux.com" port="15298" sshConfigId="61d168c9-822f-4515-bccc-8bb7d111d25f" sshConfig="yuhan@guyan.zzux.com:15298 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
