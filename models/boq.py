@@ -52,34 +52,6 @@ class BoQBlock(torch.nn.Module):
         x0 = x0 + self.cross_attn0(x0, qx, qx)[0]
         x0 = self.norm_x0(x0)
 
-        # 热力图
-        output_dir = "./exp_result/attn"
-        tensor_cpu = attn.cpu()
-        tensor_cpu = torch.abs(tensor_cpu - torch.mean(tensor_cpu, dim=1).unsqueeze(1))
-        with open("/data/2Tssd/yuhan/project/CT2_duibi/exp_result/attn/image/validation_imgnames.pkl", 'rb') as f:
-            imgname_list = pickle.load(f)
-        # imgs_cpu = imgs.cpu().detach()
-        for i in range(tensor_cpu.shape[0]):
-            folder_path = os.path.join(output_dir, f"folder_{i + 1}")
-            os.makedirs(folder_path, exist_ok=True)
-            # 获取当前原始图像并转换为OpenCV格式
-            original_img = cv2.imread(os.path.join('/data/2Tssd/yuhan/project/dataset/data/PA100k/release_data/release_data', imgname_list[i]))
-            original_img = cv2.resize(original_img, (128, 256))
-            for j in range(tensor_cpu.shape[1]):
-                image_data = tensor_cpu[i, j].detach().reshape(18, 9).numpy()
-                a = sum(sum(image_data))
-                image_data = cv2.resize(image_data, [128, 256])
-                image_data = cv2.normalize(image_data, None, 0, 255, cv2.NORM_MINMAX)
-                image_data = image_data.astype(np.uint8)
-                # 热力图
-                heatmap = cv2.applyColorMap(image_data, cv2.COLORMAP_JET)
-                superimposed_img = cv2.addWeighted(original_img, 1, heatmap, 0, 0)
-
-                output_path_heatmap = os.path.join(folder_path, f"heatmap_{j + 1}.png")
-                output_path_superimposed = os.path.join(folder_path, f"superimposed_img{j + 1}.png")
-                cv2.imwrite(output_path_heatmap, heatmap)
-                cv2.imwrite(output_path_superimposed, superimposed_img)
-
         return x, x0, attn
 
 
